@@ -46,7 +46,8 @@ document.body.onload = gameStart();
 
 function gameStart() {
   // Loopes over array and adds divs with classes "button", "front" and "button_image"
-  buttonsArray.forEach(item => {
+  for (var i = 0; i < 8; i++) {
+    var item = buttonsArray[i];
     //div with class button and data-name
     const button = document.createElement('div');
     button.classList.add('button');
@@ -65,5 +66,5 @@ function gameStart() {
     cards.appendChild(button);
     button.appendChild(front);
     button.appendChild(buttonImage);
-  });
+  };
 }
