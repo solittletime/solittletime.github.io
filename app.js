@@ -1,43 +1,36 @@
+'use strict';
+
 // Array with objects, containing images
-const buttonsArray = [
-  {
-    name: 'hand',
-    img: 'images/cards/1.svg',
-  },
-  {
-    name: 'turtle',
-    img: 'images/cards/2.svg',
-  },
-  {
-    name: 'drum',
-    img: 'images/cards/3.svg',
-  },
-  {
-    name: 'arrow',
-    img: 'images/cards/4.svg',
-  },
-  {
-    name: 'bird',
-    img: 'images/cards/5.svg',
-  },
-  {
-    name: 'circle',
-    img: 'images/cards/6.svg',
-  },
-  {
-    name: 'lizard',
-    img: 'images/cards/7.svg',
-  },
-  {
-    name: 'eagle',
-    img: 'images/cards/8.svg',
-  }
-];
+var buttonsArray = [{
+  name: 'hand',
+  img: 'images/cards/1.svg'
+}, {
+  name: 'turtle',
+  img: 'images/cards/2.svg'
+}, {
+  name: 'drum',
+  img: 'images/cards/3.svg'
+}, {
+  name: 'arrow',
+  img: 'images/cards/4.svg'
+}, {
+  name: 'bird',
+  img: 'images/cards/5.svg'
+}, {
+  name: 'circle',
+  img: 'images/cards/6.svg'
+}, {
+  name: 'lizard',
+  img: 'images/cards/7.svg'
+}, {
+  name: 'eagle',
+  img: 'images/cards/8.svg'
+}];
 
 // Id "game" is targeted in HTML, that's the place where the game will be created
-const game = document.getElementById('game');
+var game = document.getElementById('game');
 // Section with cards class is added
-const cards = document.createElement('section');
+var cards = document.createElement('section');
 cards.setAttribute('class', 'cards');
 game.appendChild(cards);
 
@@ -46,162 +39,156 @@ document.body.onload = gameStart();
 
 function gameStart() {
   // Dublicates buttonsArray and makes one full viariable with 8 pairs of buttons
-  let fullButtonsArray = buttonsArray.concat(buttonsArray);
+  var fullButtonsArray = buttonsArray.concat(buttonsArray);
 
   // Shuffles the created array
-  fullButtonsArray.sort(() => 0.5 - Math.random());
+  fullButtonsArray.sort(function () {
+    return 0.5 - Math.random();
+  });
 
   // Loopes over array and adds divs with classes "button", "front" and "button_image"
-  for (var i = 0; i < fullButtonsArray.length; i++) {
-    var item = fullButtonsArray[i]
+  fullButtonsArray.forEach(function (item) {
     //div with class button and data-name
-    const button = document.createElement('div');
+    var button = document.createElement('div');
     button.classList.add('button');
     button.dataset.name = item.name;
 
     //div with class front
-    const front = document.createElement('div');
-    front.classList.add('front')
+    var front = document.createElement('div');
+    front.classList.add('front');
 
     //div with class button_image containing images
-    const buttonImage = document.createElement('div');
+    var buttonImage = document.createElement('div');
     buttonImage.classList.add('button_image');
-    buttonImage.style.backgroundImage = `url(${item.img})`;
+    buttonImage.style.backgroundImage = 'url(' + item.img + ')';
 
     //appends created divs in the right order
     cards.appendChild(button);
     button.appendChild(front);
     button.appendChild(buttonImage);
-  };
+  });
 }
 
 // variables for score icons (stars)
-const starOne = document.getElementById('starOne');
-const starTwo = document.getElementById('starTwo');
+var starOne = document.getElementById('starOne');
+var starTwo = document.getElementById('starTwo');
 
 //variables for moves counter function
-let movesNumber = 0;
-let moves = document.querySelector('.moves');
+var movesNumber = 0;
+var moves = document.querySelector('.moves');
 
 //@description: counts moves, starts timer and applies stars-rate
-function moveCounter(){
-    movesNumber++;
-    moves.innerHTML = movesNumber;
+function moveCounter() {
+  movesNumber++;
+  moves.innerHTML = movesNumber;
 
-    //if it is the first move - start timer
-    if(movesNumber === 1){
-        second = 0;
-        minute = 0;
-        hour = 0;
-        startTimer();
-    }
+  //if it is the first move - start timer
+  if (movesNumber === 1) {
+    second = 0;
+    minute = 0;
+    hour = 0;
+    startTimer();
+  }
 
-    //three stars for 8 and less moves, two for 9-16, one for 17 and more
-    if (movesNumber > 9 && movesNumber < 16){
-        starOne.style.opacity = '0';
-    }
-    else if (movesNumber > 17){
-        starTwo.style.opacity = '0';
-    }
+  //three stars for 8 and less moves, two for 9-16, one for 17 and more
+  if (movesNumber > 9 && movesNumber < 16) {
+    starOne.style.opacity = '0';
+  } else if (movesNumber > 17) {
+    starTwo.style.opacity = '0';
+  }
 }
 
 //variables needed for timer
-let second = 0;
-let minute = 0;
-let hour = 0;
-let timer = document.querySelector('.timer');
-let interval;
+var second = 0;
+var minute = 0;
+var hour = 0;
+var timer = document.querySelector('.timer');
+var interval = void 0;
 
 //@description: adds timer
-function startTimer(){
-    interval = setInterval(() => {
-        timer.innerHTML = `${hour}:${minute}:${second}`;
-        second++;
+function startTimer() {
+  interval = setInterval(function () {
+    timer.innerHTML = hour + ':' + minute + ':' + second;
+    second++;
 
-        if(second == 60){
-            minute++;
-            second = 0;
-        }
+    if (second == 60) {
+      minute++;
+      second = 0;
+    }
 
-        if(minute == 60){
-            hour++;
-            minute = 0;
-        }
-    },1000);
+    if (minute == 60) {
+      hour++;
+      minute = 0;
+    }
+  }, 1000);
 }
 
 //variables needed for the event listener (for clicks count)
-let clicksCount = 0;
-let firstGuess = '';
-let secondGuess = '';
-let previousButton = null;
-let correctMatch = 0;
-const modal = document.getElementById('modal');
+var clicksCount = 0;
+var firstGuess = '';
+var secondGuess = '';
+var previousButton = null;
+var correctMatch = 0;
+var modal = document.getElementById('modal');
 
 //@description: adds match class to the matching cards, counts correct matches, once there are 8 matches makes modal visible
-const match = () => {
-  correctMatch ++;
+var match = function match() {
+  correctMatch++;
   console.log(correctMatch);
   if (correctMatch === 8) {
     clearInterval(interval);
     finalTime = timer.innerHTML;
     modal.classList.add('visible');
 
-    const modalStarTwo = document.getElementById('modalStarTwo');
-    const modalStarOne = document.getElementById('modalStarOne');
+    var modalStarTwo = document.getElementById('modalStarTwo');
+    var modalStarOne = document.getElementById('modalStarOne');
 
     if (movesNumber > 9 && movesNumber < 16) {
-        modalStarOne.style.opacity = '0';
-    }
-    else if (movesNumber > 17) {
-        modalStarTwo.style.opacity = '0';
-        modalStarOne.style.opacity = '0';
+      modalStarOne.style.opacity = '0';
+    } else if (movesNumber > 17) {
+      modalStarTwo.style.opacity = '0';
+      modalStarOne.style.opacity = '0';
     }
     document.getElementById('finalMove').innerHTML = movesNumber;
     document.getElementById('totalTime').innerHTML = finalTime;
   }
 
   //applies match class to the button
-  const selected = document.querySelectorAll('.selected');
-  selected.forEach(button => {
+  var selected = document.querySelectorAll('.selected');
+  selected.forEach(function (button) {
     button.classList.add('match');
   });
 
   //applies cursor-fixed class to the front
-  const cursorFixed = document.querySelectorAll('.cursor');
-  cursorFixed.forEach(button => {
-    button.classList.add('cursor-fixed')
+  var cursorFixed = document.querySelectorAll('.cursor');
+  cursorFixed.forEach(function (button) {
+    button.classList.add('cursor-fixed');
   });
 };
 
 //@description: removes selected class from the incorrect buttons
-const resetGuesses = () => {
+var resetGuesses = function resetGuesses() {
   firstGuess = '';
   secondGuess = '';
   clicksCount = 0;
   previousButton = null;
 
-  const selected = document.querySelectorAll('.selected');
-  selected.forEach(button => {
+  var selected = document.querySelectorAll('.selected');
+  selected.forEach(function (button) {
     button.classList.remove('selected');
   });
-  const cursor = document.querySelectorAll('.cursor');
-  cursor.forEach(button => {
+  var cursor = document.querySelectorAll('.cursor');
+  cursor.forEach(function (button) {
     button.classList.remove('cursor');
   });
 };
 
 /*@description: event listener is applied for the whole game section to wait
 for clicks, assign selected classes and matches*/
-game.addEventListener('click', event => {
-  const clicked = event.target;
+game.addEventListener('click', function (event) {
+  var clicked = event.target;
   //it will not count clicks on <section>, on already selected or buttons with match
-  if (
-    clicked.nodeName === 'SECTION' ||
-    clicked === previousButton ||
-    clicked.parentNode.classList.contains('selected') ||
-    clicked.parentNode.classList.contains('match')
-  ) {
+  if (clicked.nodeName === 'SECTION' || clicked === previousButton || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match')) {
     return;
   }
 
@@ -213,7 +200,7 @@ game.addEventListener('click', event => {
       console.log(firstGuess);
       clicked.parentNode.classList.add('selected');
       clicked.classList.add('cursor');
-    //if two buttons are open class selected is assigned and one move is counted
+      //if two buttons are open class selected is assigned and one move is counted
     } else {
       secondGuess = clicked.parentNode.dataset.name;
       console.log(secondGuess);
@@ -247,13 +234,13 @@ function resetAll() {
   second = 0;
   minute = 0;
   hour = 0;
-  timer.innerHTML = `${hour}:${minute}:${second}`;
+  timer.innerHTML = hour + ':' + minute + ':' + second;
   cards.innerHTML = "";
   gameStart();
 };
 
 //@description: at the end of the game, closes the modal and resets the game
-function closeModal(){
-    modal.classList.remove('visible');
-    resetAll();
+function closeModal() {
+  modal.classList.remove('visible');
+  resetAll();
 }
