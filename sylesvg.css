@@ -1,0 +1,114 @@
+/*
+==============================================
+CSS3 ANIMATION CHEAT SHEET
+==============================================
+
+Made by Justin Aguilar
+
+www.justinaguilar.com/animations/
+==============================================
+*/
+.tossing {
+	animation-name: tossing;
+	-webkit-animation-name: tossing;
+
+	animation-duration: 4s;
+	-webkit-animation-duration: 4s;
+
+	animation-iteration-count: infinite;
+	-webkit-animation-iteration-count: infinite;
+}
+
+@keyframes tossing {
+	0% {
+		transform: rotate(-0.5deg);
+	}
+	50% {
+		transform: rotate(0.5deg);
+	}
+	100% {
+		transform: rotate(-0.5deg);
+	}
+}
+
+@-webkit-keyframes tossing {
+	0% {
+		-webkit-transform: rotate(-0.5deg);
+	}
+	50% {
+		-webkit-transform: rotate(0.5deg);
+	}
+	100% {
+		-webkit-transform: rotate(-0.5deg);
+	}
+}
+
+.floating {
+	animation-name: floating;
+	-webkit-animation-name: floating;
+
+	animation-duration: 5s;
+	-webkit-animation-duration: 5s;
+
+	animation-iteration-count: infinite;
+	-webkit-animation-iteration-count: infinite;
+}
+
+@keyframes floating {
+	0% {
+		transform: translateY(0%);
+	}
+	50% {
+		transform: translateY(10%);
+	}
+	100% {
+		transform: translateY(0%);
+	}
+}
+
+@-webkit-keyframes floating {
+	0% {
+		-webkit-transform: translateY(0%);
+	}
+	50% {
+		-webkit-transform: translateY(10%);
+	}
+	100% {
+		-webkit-transform: translateY(0%);
+	}
+}
+
+.pulse {
+	animation-name: pulse;
+	-webkit-animation-name: pulse;
+
+	animation-duration: 5.5s;
+	-webkit-animation-duration: 5.5s;
+
+	animation-iteration-count: infinite;
+	-webkit-animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.95);
+	}
+	50% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(0.95);
+	}
+}
+
+@-webkit-keyframes pulse {
+	0% {
+		-webkit-transform: scale(0.95);
+	}
+	50% {
+		-webkit-transform: scale(1);
+	}
+	100% {
+		-webkit-transform: scale(0.95);
+	}
+}
